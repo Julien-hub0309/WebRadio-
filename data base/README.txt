@@ -1,0 +1,1 @@
+Copier coller le code sur l'interface graphique du serveur de la base de donnée, xampp, mysql, Wamp.
