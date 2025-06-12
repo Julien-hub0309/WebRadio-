@@ -1,0 +1,649 @@
+/* ====================================================================
+   SECTION 1: Réinitialisation des styles pour une meilleure compatibilité
+   ==================================================================== */
+   * {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* ====================================================================
+   SECTION 2: Styles généraux du corps de la page
+   ==================================================================== */
+body {
+    background-color: rgb(0, 150, 180);
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+.rightContainer {
+    display: flex;
+    flex-direction: column; /* Empile les éléments verticalement */
+    align-items: flex-end; /* Aligne les éléments à droite */
+    padding: 20px; /* Ajoute un peu d'espace autour */
+    width: 100%; /* Prend toute la largeur disponible */
+}
+
+body.sidebar-open {
+    overflow-x: hidden;
+}
+
+/* ====================================================================
+   SECTION 3: En-tête du site
+   ==================================================================== */
+header {
+    border-bottom: 2px solid #000;
+    padding: 10px 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+h1 {
+    text-align: center;
+  margin: 40px 0 20px;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+h1 {
+  
+  font-size: 1.8em;
+  color: #1b4d5a;
+}
+.menu-icon {
+    width: 40px;
+    cursor: pointer;
+}
+
+.menu-icon:hover {
+    transform: scale(1.2);
+}
+
+/* ====================================================================
+   SECTION 4: Sidebar (Menu latéral)
+   ==================================================================== */
+   .sidebar {
+    position: fixed;
+    top: 0;
+    right: 0; /* Positionner la sidebar à droite de l'écran */
+    width: 250px; /* Largeur de la sidebar */
+    height: 100%; /* Prendre toute la hauteur de l'écran */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    background-color: rgba(1, 126, 151, 0.3); /* Fond semi-transparent */
+    color: white;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: translateX(100%);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.sidebar.active {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.sidebar-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* ====================================================================
+   SECTION 5: Images et boutons dans la Sidebar
+   ==================================================================== */
+.connect-img, .close-btn, .nav-btn {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Transition fluide */
+}
+
+.connect-img {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 50%; /* Arrondir les coins pour l'icône */
+}
+
+.connect-img:hover {
+    transform: scale(1.1) rotate(10deg); /* Agrandissement + légère rotation */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Ombre plus marquée pour plus de profondeur */
+}
+
+.connect-img:active {
+    transform: scale(1.05) rotate(0deg); /* Effet de pression avec un léger agrandissement */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15); /* Ombre plus légère au clic */
+}
+
+
+.nav-btn {
+    background: transparent;
+    color: white;
+    border: none; /* 👈 Supprime la bordure */
+    border-radius: 8px;
+    padding: 12px 20px;
+    margin: 15px 0;
+    cursor: pointer;
+    font-size: 20px;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    backdrop-filter: blur(4px);
+    width: auto; /* Taille auto pour centrer plus facilement */
+}
+
+.nav-btn:hover {
+    color: #00eaff;
+    background: rgba(255, 255, 255, 0.1); /* Fond très léger au survol */
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.nav-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* ====================================================================
+   SECTION 6: Modal (Fenêtre modale)
+   ==================================================================== */
+/* Overlay (fond sombre flou) */
+#overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: none;
+  z-index: 1000; /* juste en dessous du modal */
+}
+
+/* Modal */
+#loginModal {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  display: none;
+  z-index: 1100; /* doit être plus grand que l'overlay */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* Styles pour le modal */
+.Modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+     z-index: 999 !important;
+    border-radius: 8px;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+}
+
+input[type="email"], input[type="password"] {
+    width: auto;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background: linear-gradient(135deg, rgb(0, 180, 220), rgb(0, 210, 250));
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    transform: translateY(-3px); /* Légère élévation */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* Ombre plus marquée */
+}
+
+button:active {
+    transform: translateY(1px); /* Effet de pression */
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2); /* Réduction de l'ombre */
+}
+
+/* Styles pour la croix de fermeture */
+.close {
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute; /* Positionnée relativement au modal */
+    top: 10px; /* Distance du haut du modal */
+    right: 10px; /* Distance du côté droit du modal */
+    color: rgb(255, 255, 255);
+    background: rgba(255, 0, 0, 0.8); /* Rouge semi-transparent */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Rond */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close:hover {
+    background: rgb(255, 0, 0); /* Rouge vif */
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.close:active {
+    transform: scale(0.9); /* Réduction légère au clic */
+}
+
+/* ====================================================================
+   SECTION 7: Contenu principal de la page
+   ==================================================================== */
+main {
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.centre {
+    text-align: center;
+}
+
+/* ====================================================================
+   SECTION 8: Carrousel d'images
+   ==================================================================== */
+   .carousel-container {
+    position: relative; 
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* ====================================================================
+   SECTION 9: Boutons de navigation du carrousel
+   ==================================================================== */
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+.prev:hover, .next:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+/* ====================================================================
+   SECTION 10: Points de navigation (dots)
+   ==================================================================== */
+.dots {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.dot.active {
+    background-color: #333;
+}
+
+/* ====================================================================
+   SECTION 11: Pied de page
+   ==================================================================== */
+footer {
+    border-top: 2px solid #000;
+    padding: 20px 10px;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.footer-logo {
+    width: 50px;
+    height: auto;
+}
+
+.footer-logo:hover {
+    transform: scale(1.2);
+    opacity: 0.8;
+}
+
+.footer-text {
+    font-size: 16px;
+}
+
+/* ====================================================================
+   SECTION 12: Logo du site
+   ==================================================================== */
+.logo {
+    width: 45%;
+    height: auto;
+    margin-right: 15px;
+}
+
+.logo:hover {
+    transform: scale(1.1);
+}
+
+/* ====================================================================
+   SECTION 13: Side Panel (Panneau latéral)
+   ==================================================================== */
+.side-panel {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100vh;
+    background-color: #207ab8;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    transition: right 0.3s ease-in-out;
+}
+
+.side-panel.active {
+    right: 0;
+}
+
+.close-btn {
+    font-size: 28px; /* Légèrement plus grand */
+    font-weight: bold; /* Texte plus épais */
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: rgb(255, 255, 255); /* Blanc pour plus de visibilité */
+    background: rgba(255, 0, 0, 0.8); /* Rouge semi-transparent */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Rond */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close-btn:hover {
+    background: rgb(255, 0, 0); /* Rouge vif */
+    transform: scale(1.1) rotate(90deg); /* Léger agrandissement + rotation */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.close-btn:active {
+    transform: scale(0.9); /* Réduction légère au clic */
+}
+
+/* ====================================================================
+   SECTION 14: Formulaire
+   ==================================================================== */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input, button {
+    padding: 10px;
+    font-size: 16px;
+}
+
+button {
+    background-color: rgb(90, 90, 90);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* ====================================================================
+   SECTION 16: Chaque vidéo
+   ==================================================================== */
+.video-item {
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+/* ====================================================================
+   SECTION 17: Vidéo intégrée
+   ==================================================================== */
+.video-item iframe,
+.video-item video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    max-width: 400px;
+}
+
+/* ====================================================================
+   SECTION 19: Icônes sociales
+   ==================================================================== */
+.social-buttons, .icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: scale(1.2);
+    opacity: 0.8;
+}
+
+.social-text {
+    font-size: 16px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* ====================================================================
+   SECTION 20: Responsive Design (Adaptations pour petits écrans)
+   ==================================================================== */
+@media screen and (max-width: 600px) {
+    .social-buttons {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .social-icon {
+        width: 35px;
+        height: 35px;
+    }
+
+    .social-text {
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    .videos-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .video-item {
+        max-width: 100%;
+    }
+
+    .video-title {
+        font-size: 14px;
+    }
+}
+
+/* ====================================================================
+   SECTION 21: test d'un système vidéo
+   ==================================================================== */
+/* Conteneur des vidéos */
+.video-container {
+    display: flex;
+    flex-wrap: wrap;  /* Permet aux vidéos de se déplacer sur la ligne suivante si nécessaire */
+    gap: 15px;        /* Espacement entre les vidéos */
+    justify-content: center; /* Centre les vidéos horizontalement */
+    padding: 20px;
+}
+
+/* Carte vidéo */
+.video-card {
+    text-align: center;
+    background: linear-gradient(135deg, rgb(0, 180, 220), rgb(0, 210, 250));
+    border-radius: 10px;
+    padding: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 220px;  /* Largeur fixe de chaque vidéo */
+}
+
+/* Effet au survol de la carte */
+.video-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Miniature des vidéos */
+.video-thumbnail {
+    width: 100%;  /* Utilise la largeur du conteneur pour l'image */
+    border-radius: 8px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+/* Opacité au survol de l'image */
+.video-thumbnail:hover {
+    opacity: 0.8;
+}
+
+/* Titre de la vidéo */
+.video-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+    text-align: center;  /* Centre le titre */
+    width: 100%;         /* Prend toute la largeur disponible */
+}
+
+/* ====================================================================
+   SECTION 22: barre de recherche
+   ==================================================================== */
+   .search-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+
+.search-icon {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    transition: transform 0.3s ease-out;
+}
+
+/* Animation de l'image avec déplacement et rotation */
+.search-wrapper.active .search-icon {
+    transform: translateX(2px) rotate(360deg); /* Déplacement à droite et rotation de 360 degrés */
+}
+
+.search-container {
+    width: 0;
+    overflow: hidden;
+    transition: width 0.3s ease-out, padding 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    padding: 0;
+    height: 40px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.search-wrapper.active .search-container {
+    width: 200px;
+    padding: 5px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
+}
+
+.search-wrapper button {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s;
+}

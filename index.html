@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Radio</title>
+    <link rel="stylesheet" href="Module/css/style.css" /> <!-- Feuille de style principale -->
+    <link rel="icon" type="image/png" href="image/logo.png" /> <!-- Favicon -->
+</head>
+
+<body>
+    <!-- En-tête avec logo, titre et icône menu pour sidebar -->
+    <header>
+        <a href="index.html">
+            <img src="image/logo.png" alt="logo" class="logo" />
+        </a>
+        <h1>Bienvenue sur le site du club Web Radio</h1>
+        <img
+            src="image/menu.png"
+            alt="Menu"
+            class="menu-icon"
+            onclick="toggleSidebar()"
+        />
+    </header>
+
+    <!-- Sidebar latérale (cachée par défaut), avec liens de navigation -->
+<div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+                <!-- Image cliquable pour la connexion -->
+            <img src="image/login.png" alt="Se connecter" class="connect-img" onclick="openLoginModal()">
+            <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+        </div>
+            <button href="javascript:void(0)" onclick="redirectWithSidebarClose('index.html')" class="nav-btn">Accueil</button>
+            <button href="javascript:void(0)" onclick="redirectWithSidebarClose('podcaste.html')" class="nav-btn">Podcast</button>
+            <button href="javascript:void(0)" onclick="redirectWithSidebarClose('connexion.html')" class="nav-btn">Admin Test</button>
+    </div>
+    
+    <!-- Overlay pour le flou -->
+<div id="overlay" class="overlay"></div>
+
+    <!-- Modal de connexion --> 
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeLoginModal()">&times;</span>
+        <h2>Se connecter</h2>
+        <form action="submit_login.php" method="POST">
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" required>
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Se connecter</button>
+        </form>
+    </div>
+</div>
+
+    <!-- Contenu principal -->
+    <main>
+        <section>
+            <h2 class="centre">Présentation du Club:</h2>
+
+            <!-- Carrousel d’images -->
+            <div class="carousel-container">
+                <div class="carousel">
+                    <img src="image/image-test1.png" alt="test1" />
+                    <img src="image/image-test2.png" alt="test2" />
+                    <img src="image/image-test3.png" alt="test3" />
+                    <img src="image/image-test4.png" alt="test4" />
+                </div>
+                <div class="prev">&#10094;</div> <!-- Flèche gauche -->
+                <div class="next">&#10095;</div> <!-- Flèche droite -->
+            </div>
+
+            <!-- Points de navigation du carrousel -->
+            <div class="dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </section>
+
+        <!-- Bouton pour remonter en haut -->
+        <div class="rightContainer">
+            <button onclick="scrollToTop()">⬆</button>
+        </div>
+    </main>
+
+    <!-- Pied de page avec réseaux sociaux et crédits -->
+    <footer>
+        <p class="social-text">Suivez-nous aussi sur :</p>
+        <div class="social-buttons">
+            <a href="https://www.instagram.com" target="_blank">
+                <img src="image/instagram.png" alt="Instagram" class="social-icon" />
+            </a>
+            <a href="https://www.facebook.com" target="_blank">
+                <img src="image/facebook.png" alt="Facebook" class="social-icon" />
+            </a>
+            <a href="https://www.youtube.com" target="_blank">
+                <img src="image/youtube.png" alt="YouTube" class="social-icon" />
+            </a>
+            <a href="https://www.tiktok.com" target="_blank">
+                <img src="image/tiktok.png" alt="TikTok" class="social-icon" />
+            </a>
+        </div>
+
+        <div class="footer-content">
+            <a href="https://lycee-lavoisier-meru.fr/" target="_blank">
+                <img src="image/lavoisier.png" alt="Logo" class="footer-logo" />
+            </a>
+            <p class="footer-text">
+                © 2025 Club Web Radio du Lycée Antoine Lavoisier - Tous droits réservés
+            </p>
+        </div>
+    </footer>
+
+    <script src="Module/js/script.js"></script> <!-- Script JS pour interactions -->
+</body>
+</html>
