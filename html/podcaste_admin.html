@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Radio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="image/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <header>
+        <h1>test de téléversement de vidéo</h1>
+        <img src="image/menu.png" alt="Menu" class="menu-icon" onclick="toggleSidebar()">
+    </header>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+                <!-- Image cliquable pour la connexion -->
+            <img src="image/login.png" alt="Se connecter" class="connect-img" onclick="openLoginModal()">
+            <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+        </div>
+        <a href="javascript:void(0)" onclick="redirectWithSidebarClose('index.html')">
+            <button class="nav-btn">Accueil</button>
+        </a>
+        <a href="javascript:void(0)" onclick="redirectWithSidebarClose('podcaste.html')">
+            <button class="nav-btn">Podcast</button>
+        </a>
+        <a href="javascript:void(0)" onclick="redirectWithSidebarClose('connexion.html')">
+            <button class="nav-btn">Admin Test</button>
+        </a>
+    </div>
+    
+    <!-- Overlay pour le flou -->
+<div id="overlay" class="overlay"></div>
+
+    <!-- Modal de connexion --> 
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeLoginModal()">&times;</span>
+        <h2>Se connecter</h2>
+        <form action="submit_login.php" method="POST">
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" required>
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Se connecter</button>
+        </form>
+    </div>
+</div>
+    
+    
+    <main>
+        <section>
+            <h2 class="centre">Podcast :</h2>
+            <h2>Galerie Vidéo 🎥</h2>
+            <!-- Bouton pour ouvrir la modale -->
+            <button id="openModal">Ajouter une vidéo</button>
+        
+            <!-- Fenêtre modale pour uploader -->
+            <div id="uploadModal" class="modal">
+                <div class="modal-content">
+                    <h3>Ajouter une vidéo</h3>
+                    <form id="uploadForm" enctype="multipart/form-data">
+                        <input type="text" name="titre" id="titre" placeholder="Titre de la vidéo" required><br><br>
+                        <input type="file" name="video" id="video" accept="video/*" required><br><br>
+                        <button type="submit">Téléverser</button>
+                        <span class="close" onclick="closeLoginModal()">&times;</span>
+                    </form>
+                </div>
+            </div>
+        
+            <!-- Section des vidéos -->
+            <h2>Vidéos disponibles :</h2>
+            <div id="videos" class="video-container">
+                <video controls>
+                    <source src="path/to/your/video.mp4" type="video/mp4">
+                </video>
+            </div>
+        </section>
+        <div class="rightContainer">
+            <button  onclick="scrollToTop()">⬆</button>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <img src="image/lavoisier.png" alt="Logo" class="footer-logo">
+            <p class="footer-text">© 2025 Club Web Radio du Lycée Antoine Lavoisier - Tous droits réservés</p>
+        </div>
+    </footer> 
+    <script src="script.js"></script>
+</body>
+</html>
